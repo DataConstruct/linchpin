@@ -20,4 +20,4 @@ tmp
 .envrc
 
 test.rb
- *.idea
+.idea
