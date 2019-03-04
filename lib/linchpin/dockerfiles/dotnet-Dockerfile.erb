@@ -30,4 +30,4 @@ ADD appd/AppDynamics.Agent.netstandard.dll /opt/appdynamics/dotnet/
 ENV CORECLR_PROFILER={57e1aa68-2229-41aa-9931-a6e93bbc64d8} \
 CORECLR_ENABLE_PROFILING=1 \
 CORECLR_PROFILER_PATH=/opt/appdynamics/dotnet/libappdprofiler.so
-ENTRYPOINT ["dotnet", "<%= @some_var %>"]
+ENTRYPOINT ["dotnet", "<%= @entry_dll %>"]

@@ -1,1 +1,1 @@
-require 'cli'
+require 'linchpin/cli'

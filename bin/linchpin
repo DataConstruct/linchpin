@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'linchpin/linchpin'
+require 'linchpin'
 
-Linchpin::cli.start(ARGV)
+LinchpinCLI.start(ARGV)
