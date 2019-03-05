@@ -33,7 +33,7 @@ class LinchpinCLI < Thor
   end
 
   def discover_appname
-    `basename \`git rev-parse --show-toplevel\``.strip
+    `git config --get remote.origin.url`.split('/').last.gsub! '.git', ''
   end
 
   def get_version_hash
