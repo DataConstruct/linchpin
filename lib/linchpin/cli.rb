@@ -45,7 +45,7 @@ class LinchpinCLI < Thor
         "LOL #{filename}"
         FileUtils.cp(filename, "#{temp_dir}")
       end
-      FileUtils.cp(File.join(File.join(File.join(Dir.pwd, 'buildscripts'), "deploy"), "secrets.ejson"), "#{temp_dir}")
+      FileUtils.cp(File.join(File.join(File.join(Dir.pwd, 'config'), "deploy"), "secrets.ejson"), "#{temp_dir}")
 
       escaped_command = Shellwords.escape("KUBECONFIG=~/.kube/config REVISION=#{version} kubernetes-deploy #{short_app_name} cicd-example --template-dir=#{temp_dir} --bindings=full_name=#{app_name},app_name=#{short_app_name}")
       command_output = system({}, "bash -c #{escaped_command}")
