@@ -46,7 +46,7 @@ spec:
                 secretKeyRef:
                   name: envkey-token
                   key: ENVKEY
-<% if expose %>
+<% unless expose.nil? || expose.empty? %>
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
