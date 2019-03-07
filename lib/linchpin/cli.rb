@@ -5,6 +5,7 @@ require 'find'
 require 'tempfile'
 require 'tmpdir'
 require 'fileutils'
+require 'yaml'
 
 class LinchpinCLI < Thor
   desc "build", "attempt to auto-discover application type and build it."
@@ -47,7 +48,8 @@ class LinchpinCLI < Thor
       end
       FileUtils.cp(File.join(File.join(File.join(Dir.pwd, 'config'), "deploy"), "secrets.ejson"), "#{temp_dir}")
 
-      escaped_command = Shellwords.escape("KUBECONFIG=~/.kube/config REVISION=#{version} kubernetes-deploy #{short_app_name} cicd-example --template-dir=#{temp_dir} --bindings=full_name=#{app_name},app_name=#{short_app_name}")
+      expose = configs.fetch('expose', '')
+      escaped_command = Shellwords.escape("KUBECONFIG=~/.kube/config REVISION=#{version} kubernetes-deploy #{short_app_name} cicd-example --template-dir=#{temp_dir} --bindings=full_name=#{app_name},app_name=#{short_app_name},expose=#{expose}")
       command_output = system({}, "bash -c #{escaped_command}")
 
     ensure
@@ -58,6 +60,10 @@ class LinchpinCLI < Thor
     exit(1) unless command_output
   end
   private
+
+  def configs
+    YAML.load_file(File.join(Dir.pwd, 'config', 'default.yml'))
+  end
 
   def discover_type(root_dir)
     'dotnet' if Dir["#{root_dir}/*.sln"].any?
