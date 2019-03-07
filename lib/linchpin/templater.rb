@@ -5,8 +5,8 @@ module Linchpin
   class Templater
     include ERB::Util
 
-    def initialize(entry_dll)
-      @entry_dll = entry_dll
+    def initialize(entry_project)
+      @entry_project = entry_project
       @template_loc = File.join(File.join(File.dirname(File.expand_path(__FILE__)), 'dockerfiles'),'dotnet-Dockerfile.erb')
     end
 

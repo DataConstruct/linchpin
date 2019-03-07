@@ -78,23 +78,23 @@ class LinchpinCLI < Thor
   def build_dotnet(app_name, version)
     entry_dir = ''
     Find.find('./') do |path|
-      if path =~ /.*Program\.cs$/ and !path.include? 'common' and !path.include? 'obj'
+      if path =~ /.*Program\.cs$/ and !path.include? 'common' and !path.include? 'obj' and path.include? 'API'
         puts "Found #{path}"
         entry_dir = File.dirname(path)
       end
     end
 
-    entry_dll = ''
+    entry_project = ''
     Find.find(entry_dir) do |path|
       if path =~ /.*\.csproj$/
-        entry_dll = "#{File.basename(path, ".csproj")}.dll"
+        entry_project = File.basename(path, ".csproj")
       end
     end
 
 
     file = Tempfile.new('Dockerfile')
     dockerfile = file.path
-    file.write(Linchpin::Templater.new(entry_dll).render)
+    file.write(Linchpin::Templater.new(entry_project).render)
     file.rewind # => "hello world"
     file.close
 
