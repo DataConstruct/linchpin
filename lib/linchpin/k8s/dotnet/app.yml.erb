@@ -14,10 +14,15 @@ kind: Deployment
 metadata:
   name: <%= app_name %>
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0%
+      maxSurge: 100%
   selector:
     matchLabels:
       app: <%= app_name %>
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
