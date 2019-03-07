@@ -78,7 +78,7 @@ class LinchpinCLI < Thor
   def build_dotnet(app_name, version)
     entry_dir = ''
     Find.find('./') do |path|
-      if ( path =~ /.*Program\.cs$/ and !path.include? 'common' and !path.include? 'obj' and ( path.include? 'API' or path.include? 'WebMVC' )
+      if path =~ /.*Program\.cs$/ and !path.include? 'common' and !path.include? 'obj' and ( path.include? 'API' or path.include? 'WebMVC' )
         puts "Found #{path}"
         entry_dir = File.dirname(path)
       end
