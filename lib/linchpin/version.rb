@@ -1,3 +1,3 @@
 module Linchpin
-  VERSION = '0.0.19'
+  VERSION = '0.0.26'
 end
