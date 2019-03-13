@@ -13,6 +13,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: <%= app_name %>
+  annotations:
+    shipit.shopify.io/restart: "true"
 spec:
   strategy:
     type: RollingUpdate

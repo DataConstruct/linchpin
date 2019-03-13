@@ -62,7 +62,8 @@ class LinchpinCLI < Thor
   private
 
   def configs
-    YAML.load_file(File.join(Dir.pwd, 'config', 'default.yml'))
+    configs = YAML.load_file(File.join(Dir.pwd, 'config', 'default.yml'))
+    configs ? configs : {}
   end
 
   def discover_type(root_dir)
@@ -70,7 +71,9 @@ class LinchpinCLI < Thor
   end
 
   def discover_short_appname
-    `git config --get remote.origin.url`.split('/').last.gsub!('.git', '').gsub!('sdlc-example-app-', '').strip
+    short_appname = `git config --get remote.origin.url`.split('/').last.gsub!('.git', '')
+    short_appname.gsub!('sdlc-example-app-', '')
+    short_appname.strip
   end
 
   def discover_appname
